@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<title>Martree Portal</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body onload="init()">
+
+<header>
+  <h2>Martree Portal</h2>
+  <button onclick="logout()">Sair</button>
+</header>
+
+<section>
+  <h3>Funcionários</h3>
+  <div id="lista"></div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="app.js"></script>
+<script src="api.js"></script>
+<script>
+async function init(){
+  await checkAuth();
+  listarFuncionarios();
+}
+</script>
+
+</body>
+</html>
