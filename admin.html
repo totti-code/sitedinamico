@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Admin - Martree</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body onload="initAdmin()">
+
+<h2>Painel Admin</h2>
+
+<input id="nome" placeholder="Nome">
+<input id="cargo" placeholder="Cargo">
+<button onclick="addFuncionario()">Adicionar</button>
+
+<div id="listaAdmin"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="app.js"></script>
+<script>
+async function initAdmin(){
+  await checkAuth();
+  listar();
+}
+
+async function listar(){
+  const { data } = await supabase.from("funcionarios").select("*");
+
+  const div = document.getElementById("listaAdmin");
+  div.innerHTML = "";
+
+  data.forEach(f => {
+    div.innerHTML += `
+      <div>
+        ${f.nome} - ${f.cargo}
+        <button onclick="remover('${f.id}')">Excluir</button>
+      </div>
+    `;
+  });
+}
+
+async function addFuncionario(){
+  const nome = document.getElementById("nome").value;
+  const cargo = document.getElementById("cargo").value;
+
+  await supabase.from("funcionarios").insert([{ nome, cargo }]);
+  listar();
+}
+
+async function remover(id){
+  await supabase.from("funcionarios").delete().eq("id", id);
+  listar();
+}
+</script>
+
+</body>
+</html>
