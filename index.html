@@ -1,1 +1,128 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quadro de Funcionários (Storage JSON)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
+<header class="top">
+  <div class="wrap topInner">
+    <div class="brand">
+      <div class="logo">MR</div>
+      <div>
+        <h1>Quadro de Funcionários</h1>
+        <p class="muted">Dados vindo do Supabase Storage (funcionarios.json)</p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <input id="search" class="input" type="search" placeholder="Buscar por nome, cargo ou setor..." />
+      <button id="btnReload" class="btn ghost">Recarregar</button>
+      <button id="btnAdmin" class="btn">Admin</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="panel">
+    <div class="row">
+      <div>
+        <h2>Lista</h2>
+        <p class="muted small" id="status">Carregando...</p>
+      </div>
+      <div class="kpis">
+        <div class="kpi">
+          <div class="kpiLabel">Total</div>
+          <div class="kpiVal" id="kpiTotal">—</div>
+        </div>
+        <div class="kpi">
+          <div class="kpiLabel">Ativos</div>
+          <div class="kpiVal" id="kpiAtivos">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="grid" class="grid"></div>
+    <div id="empty" class="empty" style="display:none;">Nada por aqui ainda.</div>
+  </section>
+
+  <!-- Admin Drawer -->
+  <section id="admin" class="drawer" aria-hidden="true">
+    <div class="drawerCard">
+      <div class="drawerTop">
+        <div>
+          <h2>Modo Admin (sem banco)</h2>
+          <p class="muted small">
+            Edite a lista e baixe um novo <code>funcionarios.json</code>. Depois, faça upload no Storage substituindo o arquivo.
+          </p>
+        </div>
+        <button id="btnCloseAdmin" class="btn ghost">Fechar</button>
+      </div>
+
+      <div class="adminGrid">
+        <div class="adminCol">
+          <h3>Adicionar / Editar</h3>
+
+          <div class="form">
+            <label class="lbl">ID</label>
+            <input id="fId" class="input" placeholder="Ex: F010" />
+
+            <label class="lbl">Nome</label>
+            <input id="fNome" class="input" placeholder="Nome do funcionário" />
+
+            <label class="lbl">Cargo</label>
+            <input id="fCargo" class="input" placeholder="Ex: Operador, TI, RH..." />
+
+            <label class="lbl">Setor</label>
+            <input id="fSetor" class="input" placeholder="Ex: Tecnologia, CPD..." />
+
+            <label class="lbl">Foto (URL pública)</label>
+            <input id="fFoto" class="input" placeholder="https://... (opcional)" />
+
+            <label class="check">
+              <input id="fAtivo" type="checkbox" checked />
+              <span>Ativo</span>
+            </label>
+
+            <div class="btnRow">
+              <button id="btnAdd" class="btn">Salvar na lista</button>
+              <button id="btnClear" class="btn ghost">Limpar</button>
+              <button id="btnRemove" class="btn danger">Remover por ID</button>
+            </div>
+
+            <p class="muted small" id="adminMsg"></p>
+          </div>
+        </div>
+
+        <div class="adminCol">
+          <h3>JSON atual</h3>
+          <textarea id="jsonBox" class="textarea" spellcheck="false"></textarea>
+
+          <div class="btnRow">
+            <button id="btnApplyJson" class="btn">Aplicar JSON editado</button>
+            <button id="btnDownload" class="btn ghost">Baixar funcionarios.json</button>
+          </div>
+
+          <div class="help">
+            <strong>Como atualizar no Supabase:</strong>
+            <ol>
+              <li>Clique em <b>Baixar funcionarios.json</b></li>
+              <li>Supabase → Storage → bucket <code>public-data</code></li>
+              <li>Suba o arquivo novo e <b>substitua</b> o antigo</li>
+              <li>Volte pro site e clique em <b>Recarregar</b></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
