@@ -1,7 +1,7 @@
 // =============================
 // 1) COLE A URL PÚBLICA DO SEU JSON AQUI
 // =============================
-const JSON_URL = "https://SEU-PROJETO.supabase.co/storage/v1/object/public/public-data/funcionarios.json";
+const JSON_URL = "https://qdvywfdfalzgjjxigsfv.supabase.co/storage/v1/object/public/public-data/funcionarios.json";
 
 // Cache local (pra editar)
 let funcionarios = [];
